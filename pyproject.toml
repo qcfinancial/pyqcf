@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pyqcf"
+version = "0.2.0"
+description = "Python helper modules for qcfinancial"
+authors = ["Alvaro Diaz Valenzuela <alvaro@efaa.cl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.1.4"
+requests = "^2.31.0"
+pydantic = "^2.5.2"
+qcfinancial = "^0.5.1"
+strenum = "^0.4.15"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
