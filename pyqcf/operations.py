@@ -17,11 +17,10 @@ from typing import (
 from enum import auto
 import re
 
-from qcf_valuation import (
-    front_desk_config as config,
-    qcf_wrappers as qcw,
-)
 import qcfinancial as qcf
+
+from . import wrappers as qcw
+from . import config
 
 
 class Rut(BaseModel):
@@ -111,6 +110,9 @@ class TypeOfLeg(StrEnum):
     ICP_CLF = auto()
 
     def __str__(self):
+        return str(self.value)
+
+    def __repr__(self):
         return str(self.value)
 
 

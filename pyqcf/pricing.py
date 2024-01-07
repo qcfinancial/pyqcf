@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 import qcfinancial as qcf
 from . import wrappers as qcw
-from . import front_desk_config as config
+from . import config as config
 from . import market_data as qcv
 
 

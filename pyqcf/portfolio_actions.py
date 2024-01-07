@@ -1,4 +1,4 @@
-from . import front_desk_config as config
+from . import config as config
 from . import market_data as qcv
 from datetime import date
 from typing import List, Tuple

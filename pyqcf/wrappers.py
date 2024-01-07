@@ -56,7 +56,7 @@ class Currency(str, Enum):
             self.JPY: qcf.QCJPY(),
             self.MXN: qcf.QCMXN(),
             self.NOK: qcf.QCNOK(),
-            self.PEN: qcf.QCCPEN(),
+            self.PEN: qcf.QCPEN(),
             self.SEK: qcf.QCSEK(),
             self.USD: qcf.QCUSD(),
         }
