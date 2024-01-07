@@ -1,14 +1,10 @@
-# Se configura parametría asociada a Front Desk.
-# TODO: esto debe alimentarse desde Front Desk y no estar en duro.
+# Se configura parametría asociada a la plataforma de origen.
 
 import sys
 from enum import Enum
 from typing import Dict, Union
 
-if sys.platform in ["win32", "darwin"]:
-    import qcfinancial as qcf
-else:
-    import qc_financial as qcf
+import qcfinancial as qcf
 
 from . import wrappers as qcw
 
@@ -34,6 +30,7 @@ fx_rate_index_names = [
     "USDOBS",
     "USDCLF_RC",
 ]
+
 
 synth_fx_rate_index_names = [
     "OBS2_UF0",
@@ -163,6 +160,7 @@ calendar_aliases = {
     "NEW YORK": "NEW_YORK",
 }
 
+
 interest_rate_index_names = [
     "US0006M",
     "US0003M",
@@ -193,6 +191,7 @@ interest_rate_index_aliases = {
     "TAB_360_CLP": "TAB-360-CLP",
 }
 
+
 contrapartes_col_usd = {
     "97006000-6": "BCI",
     "97036000-K": "SANTANDER",
@@ -213,6 +212,7 @@ contrapartes_col_usd = {
     "414935828-0": "CITIBANK NEW YORK",
 }
 
+
 codigos_curvas_derivados = [
     "CSOFR",
     "CFF",
@@ -229,7 +229,6 @@ codigos_curvas_derivados = [
     "CEURCOLCLP",
     "CCNYCOLUSD",
     "CCNYCOLCLP",
-    # "FWDJPY-__RIESGO__",
 ]
 
 

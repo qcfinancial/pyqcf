@@ -22,7 +22,7 @@ class SettlingOperation(DealNumber):
 def get_settlements(
         process_date: qcw.Fecha,
         settlement_date: qcw.Fecha,
-        swaps: dto.OperationDataAnalytics,
+        swaps: dto.DerivativePortfolio,
         market_data: qcv.MarketData,
 ) -> tuple[list[SettlingOperation], list[DealNumber]]:
     """
@@ -31,7 +31,7 @@ def get_settlements(
     Args:
         process_date (qcw.Fecha): Fecha de proceso. Los swaps encontrados vencen después de process_date.
         settlement_date (qcw.Fecha): Fecha máxima de vencimiento.
-        swaps: (dto.OperationDataAnalytics): Objeto con la data de la cartera vigente de swaps.
+        swaps: (dto.DerivativePortfolio): Objeto con la data de la cartera vigente de swaps.
         market_data (qcv.MarketData): Objeto con datos de mercado y los calendarios requeridos para la construcción
         de las patas qcfinancial.
 
@@ -152,7 +152,7 @@ class SettlementInfo(BaseModel):
 def calculate_settlement(
         process_date: qcw.Fecha,
         operation_and_legs: SettlingOperation,
-        swaps: dto.OperationDataAnalytics,
+        swaps: dto.DerivativePortfolio,
         market_data: qcv.MarketData,
 ) -> SettlementInfo:
     """
@@ -161,7 +161,7 @@ def calculate_settlement(
     Args:
         process_date (qcw.Fecha): fecha a la que se realiza el cálculo.
         operation_and_legs (SettlingOperation): Número de operación y número de pata.
-        swaps (dto.OperationDataAnalytics): Objeto que almacena la data de todos los swaps vigentes.
+        swaps (dto.DerivativePortfolio): Objeto que almacena la data de todos los swaps vigentes.
         market_data (qcv.MarketData): Objeto con los datos de mercado requeridos para los fixings.
 
     Returns:

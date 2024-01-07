@@ -12,7 +12,11 @@ requests = "^2.31.0"
 pydantic = "^2.5.2"
 qcfinancial = "^0.5.1"
 strenum = "^0.4.15"
+pymongo = "^4.6.1"
+fastapi = "^0.108.0"
 
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core"]

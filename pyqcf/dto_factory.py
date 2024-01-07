@@ -1,22 +1,15 @@
 from functools import lru_cache
 from datetime import date
-import pandas as pd
 
-from data_services import data_front_desk as dfd
-from qcf_valuation import qcf_wrappers as qcw
-
-from pymongo import database as mdb
-from fastapi import Depends
-
-from ..modules import front_desk_extra_2 as fdx
-from ..modules import analytics_extra as anx
-from ..models import operations_2 as op
-from ..dependencies import get_db
+from . import analytics_extra as anx
+from . import operations as op
+from . import wrappers as qcw
+from .dependencies import get_db
 
 
 def get_operations_for_date(process_date: date):
     db = get_db()
-    collection_name = f'operations_{process_date.isoformat().replace("-", "")}'
+    collection_name = f'operations_{process_date}'
 
     if collection_name not in db.list_collection_names():
         raise ValueError(f"There are no operations for {process_date}.")
@@ -33,7 +26,7 @@ def get_operations_for_date(process_date: date):
     return result
 
 
-class OperationDataAnalytics:
+class DerivativePortfolio:
     def __init__(self, portfolio_date: date):
         self.portfolio_date = portfolio_date
         self.data = get_operations_for_date(portfolio_date)

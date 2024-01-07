@@ -3,7 +3,7 @@ import pandas as pd
 
 from data_services import data_front_desk as dfd
 from . import market_data as qcv
-from . import front_desk_config as config
+from . import config as config
 
 from typing import List
 from datetime import date

@@ -1,13 +1,22 @@
 from dateutil import relativedelta
 from typing import Any
-import pandas as pd
 
-from qcf_valuation import qcf_wrappers as qcw
-
-from ..models import operations_2 as op
+from . import wrappers as qcw
+from . import operations as op
 
 
 def aux_make_leg_1(raw_leg: dict[str, Any]):
+    """
+    Construye los campos start_date, end_date, maturity y notional_or_custom de un LegGenerator a partir de la
+    data que proviene de BBDD.
+
+    Args:
+        raw_leg (dict[str, Any]: datos de la pata proviente de BBDD.
+
+    Returns:
+        tuple[qcw.Fecha, qcw.Fecha, qcw.Tenor, Union[InitialNotional, op.CustomNotionalAmort]]
+
+    """
     start_date = qcw.Fecha(fecha=raw_leg["start_date"])
     end_date = qcw.Fecha(fecha=raw_leg["end_date"])
     delta = relativedelta.relativedelta(end_date.as_py_date(), start_date.as_py_date())
@@ -29,7 +38,7 @@ def aux_make_leg_2(raw_leg: dict[str, Any], which: str):
     meses = raw_leg[which]["meses"]
     dias = raw_leg[which]["dias"]
 
-    return agnos, dias, meses
+    return agnos, meses, dias
 
 
 def aux_make_mccy(raw_leg: dict[str, Any]) -> op.MultiCurrencyModel:
@@ -46,6 +55,10 @@ def make_fixed_rate_leg_generator(
     start_date, end_date, maturity, notional_or_custom = aux_make_leg_1(raw_leg)
 
     agnos, meses, dias = aux_make_leg_2(raw_leg, "periodicity")
+    periodicity = qcw.Tenor(**raw_leg["periodicity"])
+
+    # agnos, meses, dias = aux_make_leg_2(raw_leg, "maturity")
+    # maturity = qcw.Tenor(agnos=agnos, meses=meses, dias=dias)
 
     return op.FixedRateLegGenerator(
         rp=qcw.AP.A if raw_leg["rp"] == "A" else qcw.AP.P,
@@ -53,7 +66,7 @@ def make_fixed_rate_leg_generator(
         end_date=end_date,
         maturity=maturity,
         bus_adj_rule=qcw.BusAdjRules(raw_leg["bus_adj_rule"]),
-        periodicity=qcw.Tenor(agnos=agnos, meses=meses, dias=dias),
+        periodicity=periodicity,
         stub_period=qcw.StubPeriods(raw_leg["stub_period"]),
         settlement_calendar=raw_leg["settlement_calendar"],
         settlement_lag=raw_leg["settlement_lag"],
